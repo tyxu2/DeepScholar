@@ -31,37 +31,9 @@ DeepScholar 是 **Deep Research 应用场景**（OpenAI / Gemini / Perplexity �
 
 ## 架构图
 
-```mermaid
-flowchart LR
-    U([用户问题]) --> B[Brain Agent<br/>规划 + 拆解]
-    B --> SUP{Supervisor}
-    SUP -- sub_q_1 --> R1[Sub-Researcher 1<br/>ReAct]
-    SUP -- sub_q_2 --> R2[Sub-Researcher 2<br/>ReAct]
-    SUP -- sub_q_n --> RN[Sub-Researcher n<br/>ReAct]
-    R1 --> EV[结构化<br/>Evidence 层]
-    R2 --> EV
-    RN --> EV
-    EV --> W[Writer Agent<br/>Markdown + LaTeX]
-    W --> C{Critic}
-    C -- issues --> W
-    C -- accept --> OUT([paper.md / paper.tex])
+![DeepScholar 架构](docs/arch.png)
 
-    subgraph 工具
-      T1[arxiv / S2 检索]
-      T2[PDF 阅读]
-      T3[GitHub 仓库]
-      T4[代码执行]
-    end
-    subgraph 记忆
-      M1[Working state]
-      M2[Session memory]
-      M3[PaperStore<br/>LlamaIndex RAG]
-    end
-    R1 -.调用.-> 工具
-    R1 -.读写.-> 记忆
-```
-
-**一句话数据流：** Brain 拆解 → Supervisor 并行派发 ReAct Sub-Researchers → Evidence 压缩 → Writer 起草 Markdown + LaTeX → Critic 循环直到通过。
+**一句话数据流：** Brain 拆解 → Supervisor 弹性调度 ReAct Sub-Researcher 池（含 re-plan / 重新派发循环）→ Evidence 压缩 → Writer 起草 Markdown + LaTeX → Critic 循环直到通过。
 
 ---
 

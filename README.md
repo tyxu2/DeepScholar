@@ -31,37 +31,9 @@ It is designed as a **transparent, hackable reference implementation** of the pa
 
 ## Architecture
 
-```mermaid
-flowchart LR
-    U([User query]) --> B[Brain Agent<br/>plan + decompose]
-    B --> SUP{Supervisor}
-    SUP -- sub_q_1 --> R1[Sub-Researcher 1<br/>ReAct]
-    SUP -- sub_q_2 --> R2[Sub-Researcher 2<br/>ReAct]
-    SUP -- sub_q_n --> RN[Sub-Researcher n<br/>ReAct]
-    R1 --> EV[Structured<br/>Evidence Layer]
-    R2 --> EV
-    RN --> EV
-    EV --> W[Writer Agent<br/>Markdown + LaTeX]
-    W --> C{Critic}
-    C -- issues --> W
-    C -- accept --> OUT([paper.md / paper.tex])
+![DeepScholar architecture](docs/arch.png)
 
-    subgraph Tools
-      T1[arxiv / S2 search]
-      T2[PDF reader]
-      T3[GitHub repo]
-      T4[code/exec]
-    end
-    subgraph Memory
-      M1[Working state]
-      M2[Session memory]
-      M3[PaperStore<br/>LlamaIndex RAG]
-    end
-    R1 -.uses.-> Tools
-    R1 -.reads/writes.-> Memory
-```
-
-**Data flow in one line:** *Brain decomposes → Supervisor fans out parallel ReAct sub-researchers → Evidence is compressed → Writer drafts Markdown + LaTeX → Critic loops until acceptable.*
+**Data flow in one line:** *Brain decomposes → Supervisor elastically dispatches a pool of ReAct sub-researchers (with re-plan / re-dispatch loops) → Evidence is compressed → Writer drafts Markdown + LaTeX → Critic loops until acceptable.*
 
 ---
 
