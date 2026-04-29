@@ -1,0 +1,74 @@
+\documentclass[10pt,twocolumn]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[scaled=0.92]{helvet}
+\usepackage{mathpazo}
+\renewcommand{\familydefault}{\rmdefault}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{geometry}
+\geometry{a4paper, top=1in, bottom=1in, left=0.85in, right=0.85in}
+\usepackage{microtype}
+\usepackage{parskip}
+\setlength{\parskip}{4pt}
+
+\title{\textbf{ {{- title | latex_escape -}} }}
+\author{ {{- authors -}} }
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+{{ abstract | latex_escape }}
+\end{abstract}
+
+\section{Introduction}
+{{ intro | latex_escape }}
+
+\section{Related Work}
+{{ related_work | latex_escape }}
+
+\section{Core Mechanisms and Architecture}
+{{ method | latex_escape }}
+
+\section{Performance Evaluation}
+{{ experiments | latex_escape }}
+
+{% if results_table %}
+\begin{table}[h]
+\centering
+\caption{Experimental Results Comparison}
+\begin{tabular}{lcc}
+\toprule
+Method & Metric & Value \\
+\midrule
+{% for row in results_table %}
+{{ row.method | latex_escape }} & {{ row.metric | latex_escape }} & {{ row.value | latex_escape }} \\
+{% endfor %}
+\bottomrule
+\end{tabular}
+\end{table}
+{% endif %}
+
+\section{Conclusion}
+{{ conclusion | latex_escape }}
+
+\bibliographystyle{plainnat}
+{% if references %}
+\begin{thebibliography}{99}
+{% for ref in references %}
+\bibitem[{{ ref.authors | latex_escape }}, {{ ref.year }}]{ {{- ref.key -}} }
+{{ ref.authors | latex_escape }}.
+\newblock {\em {{ ref.title | latex_escape }}}.
+{% if ref.year %}\newblock {{ ref.year }}.{% endif %}
+
+{% endfor %}
+\end{thebibliography}
+{% endif %}
+
+\end{document}

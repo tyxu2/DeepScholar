@@ -1,0 +1,75 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "deepscholar"
+version = "0.1.0"
+description = "DeepScholar — an open-source Deep Research agent for academic literature, surveys, and code-grounded reports."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "tyxu2" }]
+keywords = ["deep-research", "agent", "llm", "rag", "react", "multi-agent", "research-assistant"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    # Agent orchestration
+    "langgraph>=0.2.0",
+    "langchain>=0.3.0",
+    "langchain-openai>=0.2.0",
+
+    # Multi-model routing
+    "litellm>=1.40.0",
+
+    # RAG
+    "llama-index>=0.11.0",
+    "llama-index-embeddings-openai>=0.2.0",
+    "chromadb>=0.5.0",
+    "llama-index-vector-stores-chroma>=0.2.0",
+    "rank-bm25>=0.2.2",
+
+    # Paper retrieval
+    "arxiv>=2.1.0",
+    "semanticscholar>=0.6.0",
+
+    # PDF parsing
+    "pdfplumber>=0.11.0",
+
+    # GitHub API
+    "PyGithub>=2.3.0",
+
+    # CLI
+    "typer>=0.12.0",
+    "rich>=13.7.0",
+    "prompt-toolkit>=3.0.43",
+
+    # Utilities
+    "python-dotenv>=1.0.0",
+    "pyyaml>=6.0.2",
+    "requests>=2.32.0",
+    "jinja2>=3.1.0",
+]
+
+[project.optional-dependencies]
+# Optional LangSmith observability — activated automatically when
+# LANGSMITH_API_KEY is set in the environment.
+langsmith = ["langsmith>=0.1.0"]
+
+[project.urls]
+Homepage = "https://github.com/tyxu2/DeepScholar"
+Repository = "https://github.com/tyxu2/DeepScholar"
+Issues = "https://github.com/tyxu2/DeepScholar/issues"
+
+[project.scripts]
+deepscholar = "research_agent.cli:main"
+research-agent = "research_agent.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["research_agent"]

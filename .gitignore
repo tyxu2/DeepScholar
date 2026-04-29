@@ -1,0 +1,74 @@
+# ─── Run artifacts ───────────────────────────────────────────
+output/
+output_*/
+papers/
+papers_*/
+paper_index/
+chroma/
+chroma_db/
+*.jsonl
+trace.jsonl
+*.log
+logs/
+
+# ─── Secrets / env ───────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+secrets/
+
+# ─── Python ──────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.coverage
+.coverage.*
+htmlcov/
+dist/
+build/
+*.egg-info/
+*.egg
+.venv/
+venv/
+env/
+ENV/
+pip-wheel-metadata/
+
+# ─── Jupyter ─────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb
+
+# ─── LaTeX build ─────────────────────────────────────────────
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.toc
+*.out
+*.lof
+*.lot
+
+# ─── OS / Editors ────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+.cursor/
+.windsurf/
+
+# ─── Misc ────────────────────────────────────────────────────
+node_modules/
+.cache/
+tmp/
+.tmp/
